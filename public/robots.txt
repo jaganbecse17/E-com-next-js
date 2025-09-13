@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Allow crawling of all important pages
+Allow: /products
+Allow: /categories
+Allow: /about
+Allow: /contact
+
+# Disallow admin and private areas (for future implementation)
+Disallow: /admin
+Disallow: /api
+Disallow: /_next
+
+# Sitemap location
+Sitemap: https://your-domain.vercel.app/sitemap.xml

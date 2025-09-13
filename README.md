@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ECommerce - Next.js E-commerce Application
+
+A modern, scalable e-commerce web application built with Next.js 15, TypeScript, and Tailwind CSS. Optimized for SEO and ready for Vercel deployment.
+
+## Features
+
+### 🚀 Performance & SEO
+
+- **Static Site Generation (SSG)** for optimal performance
+- **Dynamic pages** with automatic static parameter generation
+- **SEO optimization** with proper metadata, Open Graph, and Twitter cards
+- **Sitemap generation** for better search engine indexing
+- **Robots.txt** configuration
+
+### 🛍️ E-commerce Features
+
+- Product catalog with categories
+- Individual product pages with detailed information
+- Category-based product filtering
+- Responsive product cards with ratings and pricing
+- Search functionality (UI ready)
+- Shopping cart (UI ready)
+
+### 🎨 Design & UX
+
+- **Responsive design** that works on all devices
+- **Modern UI components** built with Tailwind CSS
+- **Accessible design** with proper ARIA labels
+- **Clean, professional layout** optimized for conversions
+
+### 🏗️ Architecture
+
+- **Scalable folder structure** for large applications
+- **TypeScript** for type safety and better development experience
+- **Modular components** for reusability
+- **Utility functions** for common operations
+- **Proper separation of concerns**
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Deployment**: Vercel (optimized)
 
 ## Getting Started
 
-First, run the development server:
+### Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+3. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## Project Structure
+
+```
+src/
+├── app/                    # App Router pages
+├── components/           # Reusable components
+├── data/                # Sample data
+├── lib/                 # Utility functions
+├── types/               # TypeScript definitions
+└── utils/               # Helper functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Vercel (Recommended)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push to GitHub
+2. Connect repository to Vercel
+3. Deploy automatically
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+- Edit `src/data/products.ts` for products/categories
+- Modify `tailwind.config.ts` for styling
+- Add pages in `src/app/` directories
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ using Next.js and TypeScript
