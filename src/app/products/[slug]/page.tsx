@@ -1,48 +1,32 @@
+"use client";
+
+import { useState } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { Star, ShoppingCart, ArrowLeft, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getProductBySlug, products } from "@/data/products";
-import {
-  formatPrice,
-  getDiscountPercentage,
-  generateMetadata as generateSEOMetadata,
-} from "@/lib/utils";
-import type { Metadata } from "next";
-import { PageProps } from "@/types";
+import { getEnhancedProductBySlug } from "@/data/enhanced-products";
+import { formatPrice } from "@/lib/utils";
+import { useCart } from "@/contexts/cart-context";
+import ProductImages from "@/components/ecommerce/product-images";
+import { ProductReviews } from "@/components/product/product-reviews";
+import { ProductSpecifications } from "@/components/product/product-specifications";
+import { ProductOwnerDetails } from "@/components/product/product-owner-details";
+import { ProductOffers } from "@/components/product/product-offers";
+import { DeliveryCheck } from "@/components/product/delivery-check";
 
-// Generate static params for all products (Static Site Generation)
-export async function generateStaticParams() {
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
+interface ProductPageProps {
+  params: { slug: string };
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const product = getProductBySlug(params.slug);
-
-  if (!product) {
-    return {
-      title: "Product Not Found",
-      description: "The requested product could not be found.",
-    };
-  }
-
-  return generateSEOMetadata(
-    product.name,
-    product.description,
-    product.tags,
-    product.images[0]
-  );
-}
-
-export default function ProductPage({ params }: PageProps) {
-  const product = getProductBySlug(params.slug);
+export default function ProductPage({ params }: ProductPageProps) {
+  const [activeTab, setActiveTab] = useState<
+    "description" | "specifications" | "reviews"
+  >("description");
+  const [quantity, setQuantity] = useState(1);
+  const product = getEnhancedProductBySlug(params.slug);
+  const { addToCart, getCartItem } = useCart();
 
   if (!product) {
     notFound();
@@ -50,9 +34,24 @@ export default function ProductPage({ params }: PageProps) {
 
   const hasDiscount =
     product.originalPrice && product.originalPrice > product.price;
-  const discountPercentage = hasDiscount
-    ? getDiscountPercentage(product.originalPrice!, product.price)
-    : 0;
+
+  const cartItem = getCartItem(product.id);
+  const totalInCart = cartItem ? cartItem.quantity : 0;
+  const maxQuantity = product.stockQuantity - totalInCart;
+  const canAddToCart = product.inStock && maxQuantity > 0;
+
+  const handleAddToCart = () => {
+    if (canAddToCart) {
+      addToCart(product, quantity);
+      setQuantity(1); // Reset quantity after adding
+    }
+  };
+
+  const tabs = [
+    { id: "description", label: "Description" },
+    { id: "specifications", label: "Specifications" },
+    { id: "reviews", label: `Reviews (${product.totalReviews})` },
+  ] as const;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -87,55 +86,14 @@ export default function ProductPage({ params }: PageProps) {
         Back to Products
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Product Images */}
-        <div className="space-y-4">
-          <div className="aspect-square relative overflow-hidden rounded-lg border">
-            <Image
-              src={product.images[0] || "/placeholder-product.jpg"}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            {hasDiscount && (
-              <div className="absolute top-4 left-4 bg-red-500 text-white text-sm font-bold px-3 py-1 rounded">
-                -{discountPercentage}% OFF
-              </div>
-            )}
-            {!product.inStock && (
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <span className="text-white font-semibold text-lg">
-                  Out of Stock
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Additional Images */}
-          {product.images.length > 1 && (
-            <div className="grid grid-cols-4 gap-2">
-              {product.images.slice(1).map((image, index) => (
-                <div
-                  key={index}
-                  className="aspect-square relative overflow-hidden rounded border"
-                >
-                  <Image
-                    src={image}
-                    alt={`${product.name} ${index + 2}`}
-                    fill
-                    className="object-cover"
-                    sizes="25vw"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+        <div className="lg:col-span-1">
+          <ProductImages product={product} />
         </div>
 
         {/* Product Details */}
-        <div className="space-y-6">
+        <div className="lg:col-span-1 space-y-6">
           <div>
             <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
             <p className="text-muted-foreground">{product.shortDescription}</p>
@@ -148,7 +106,7 @@ export default function ProductPage({ params }: PageProps) {
                 <Star
                   key={i}
                   className={`h-5 w-5 ${
-                    i < Math.floor(product.rating)
+                    i < Math.floor(product.averageRating)
                       ? "fill-yellow-400 text-yellow-400"
                       : "text-gray-300"
                   }`}
@@ -156,7 +114,8 @@ export default function ProductPage({ params }: PageProps) {
               ))}
             </div>
             <span className="text-sm text-muted-foreground">
-              {product.rating} ({product.reviewCount} reviews)
+              {product.averageRating.toFixed(1)} ({product.totalReviews}{" "}
+              reviews)
             </span>
           </div>
 
@@ -195,13 +154,63 @@ export default function ProductPage({ params }: PageProps) {
                 ? `In Stock (${product.stockQuantity} available)`
                 : "Out of Stock"}
             </span>
+            {totalInCart > 0 && (
+              <span className="text-sm text-blue-600">
+                ({totalInCart} in cart)
+              </span>
+            )}
           </div>
+
+          {/* Offers */}
+          <ProductOffers offers={product.offers} />
+
+          {/* Quantity Selector */}
+          {canAddToCart && (
+            <div className="flex items-center space-x-3">
+              <span className="text-sm font-medium">Quantity:</span>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  disabled={quantity <= 1}
+                >
+                  -
+                </Button>
+                <span className="w-12 text-center font-medium">{quantity}</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0"
+                  onClick={() =>
+                    setQuantity(Math.min(maxQuantity, quantity + 1))
+                  }
+                  disabled={quantity >= maxQuantity}
+                >
+                  +
+                </Button>
+              </div>
+              <span className="text-sm text-gray-500">
+                (Max: {maxQuantity})
+              </span>
+            </div>
+          )}
 
           {/* Actions */}
           <div className="flex space-x-4">
-            <Button size="lg" className="flex-1" disabled={!product.inStock}>
+            <Button
+              size="lg"
+              className="flex-1"
+              disabled={!canAddToCart}
+              onClick={handleAddToCart}
+            >
               <ShoppingCart className="h-5 w-5 mr-2" />
-              {product.inStock ? "Add to Cart" : "Out of Stock"}
+              {!product.inStock
+                ? "Out of Stock"
+                : maxQuantity === 0
+                ? "Max Quantity in Cart"
+                : "Add to Cart"}
             </Button>
             <Button size="lg" variant="outline">
               <Heart className="h-5 w-5" />
@@ -234,19 +243,61 @@ export default function ProductPage({ params }: PageProps) {
             </div>
           </div>
         </div>
+
+        {/* Sidebar */}
+        <div className="lg:col-span-1 space-y-6">
+          <DeliveryCheck productPrice={product.price} />
+          <ProductOwnerDetails owner={product.owner} />
+        </div>
       </div>
 
-      {/* Product Description */}
-      <Card className="mt-12">
-        <CardContent className="p-6">
-          <h2 className="text-2xl font-bold mb-4">Product Description</h2>
-          <div className="prose max-w-none">
-            <p className="text-muted-foreground leading-relaxed">
-              {product.description}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Product Details Tabs */}
+      <div className="mt-12">
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab.id
+                    ? "border-primary text-primary"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="mt-8">
+          {activeTab === "description" && (
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="text-2xl font-bold mb-4">Product Description</h2>
+                <div className="prose max-w-none">
+                  <p className="text-muted-foreground leading-relaxed">
+                    {product.description}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {activeTab === "specifications" && (
+            <ProductSpecifications specifications={product.specifications} />
+          )}
+
+          {activeTab === "reviews" && (
+            <ProductReviews
+              reviews={product.reviews}
+              averageRating={product.averageRating}
+              totalReviews={product.totalReviews}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

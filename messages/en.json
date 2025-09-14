@@ -1,0 +1,250 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "navigation": {
+    "products": "Products",
+    "categories": "Categories",
+    "cart": "Cart",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up",
+    "notifications": "Notifications",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "account": "Account",
+    "settings": "Settings"
+  },
+  "homepage": {
+    "title": "Welcome to ECommerce",
+    "subtitle": "Your Premier Shopping Destination",
+    "description": "Discover quality products at great prices",
+    "features": {
+      "fastShipping": {
+        "title": "Fast Shipping",
+        "description": "Free shipping on orders over $75. Get your products delivered quickly."
+      },
+      "secureShopping": {
+        "title": "Secure Shopping",
+        "description": "Your data is protected with enterprise-grade security measures."
+      },
+      "easyReturns": {
+        "title": "Easy Returns",
+        "description": "30-day return policy. Not satisfied? Get your money back."
+      }
+    },
+    "categories": {
+      "title": "Shop by Category",
+      "description": "Find exactly what you're looking for in our curated categories"
+    },
+    "featuredProducts": {
+      "title": "Featured Products",
+      "description": "Hand-picked products that our customers love",
+      "viewAll": "View All Products"
+    },
+    "testimonials": {
+      "title": "What Our Customers Say",
+      "description": "Don't just take our word for it",
+      "reviews": [
+        {
+          "name": "Sarah Johnson",
+          "comment": "Amazing quality products and super fast shipping! I'm a customer for life."
+        },
+        {
+          "name": "Mike Chen",
+          "comment": "Great customer service and easy returns. Highly recommend this store."
+        },
+        {
+          "name": "Emma Davis",
+          "comment": "Best prices I've found online. The products exceeded my expectations."
+        }
+      ]
+    }
+  },
+  "products": {
+    "title": "Products",
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added to Cart",
+    "outOfStock": "Out of Stock",
+    "price": "Price",
+    "description": "Description",
+    "specifications": "Specifications",
+    "reviews": "Reviews",
+    "rating": "Rating",
+    "quantity": "Quantity",
+    "category": "Category",
+    "brand": "Brand",
+    "sku": "SKU",
+    "inStock": "In Stock",
+    "delivery": "Delivery",
+    "owner": "Seller"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "removeItem": "Remove Item",
+    "updateQuantity": "Update Quantity",
+    "items": "{count, plural, =0 {No items} =1 {1 item} other {# items}}",
+    "proceedToCheckout": "Proceed to Checkout"
+  },
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "username": "Username",
+    "fullName": "Full Name",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInWithProvider": "Sign in with {provider}",
+    "createAccount": "Create Account",
+    "resetPassword": "Reset Password",
+    "invalidCredentials": "Invalid email or password",
+    "accountCreated": "Account created successfully",
+    "passwordReset": "Password reset email sent",
+    "signInSuccess": "Signed in successfully",
+    "signOutSuccess": "Signed out successfully"
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "preferences": "Preferences",
+    "orderHistory": "Order History",
+    "addresses": "Addresses",
+    "paymentMethods": "Payment Methods",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "updateProfile": "Update Profile",
+    "profileUpdated": "Profile updated successfully",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "passwordChanged": "Password changed successfully"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAsRead": "Mark as Read",
+    "markAsUnread": "Mark as Unread",
+    "markAllAsRead": "Mark All as Read",
+    "clearAll": "Clear All",
+    "noNotifications": "No notifications",
+    "filter": {
+      "all": "All",
+      "unread": "Unread",
+      "order": "Orders",
+      "promotion": "Promotions",
+      "info": "Info",
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "types": {
+      "order": "Order",
+      "promotion": "Promotion",
+      "info": "Info",
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error"
+    }
+  },
+  "orders": {
+    "title": "Orders",
+    "orderHistory": "Order History",
+    "orderNumber": "Order #",
+    "orderDate": "Order Date",
+    "orderStatus": "Status",
+    "orderTotal": "Total",
+    "trackOrder": "Track Order",
+    "orderDetails": "Order Details",
+    "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
+    "paymentMethod": "Payment Method",
+    "noOrders": "No orders found",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded"
+    }
+  },
+  "categories": {
+    "smartphones": "Smartphones",
+    "laptops": "Laptops",
+    "headphones": "Headphones",
+    "smartWatch": "Smart Watch",
+    "cameras": "Cameras",
+    "gaming": "Gaming",
+    "fashion": "Fashion",
+    "homeDecor": "Home Decor",
+    "kitchen": "Kitchen",
+    "sports": "Sports",
+    "books": "Books",
+    "beauty": "Beauty",
+    "electronics": "Electronics",
+    "clothing": "Clothing",
+    "accessories": "Accessories"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "results": "Search Results",
+    "noResults": "No results found",
+    "searchFor": "Search for",
+    "suggestions": "Suggestions",
+    "recentSearches": "Recent Searches",
+    "popularSearches": "Popular Searches"
+  },
+  "footer": {
+    "companyDescription": "Your trusted destination for quality products and exceptional service.",
+    "quickLinks": "Quick Links",
+    "customerService": "Customer Service",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Subscribe to get updates on new products and exclusive offers.",
+    "subscribeButton": "Subscribe",
+    "emailPlaceholder": "Enter your email",
+    "copyright": "© 2024 ECommerce. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "returnPolicy": "Return Policy",
+    "shippingInfo": "Shipping Info",
+    "faq": "FAQ",
+    "support": "Support"
+  }
+}

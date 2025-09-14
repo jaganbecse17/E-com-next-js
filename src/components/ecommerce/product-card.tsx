@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Star, ShoppingCart } from "lucide-react";
@@ -5,27 +7,34 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types";
 import { formatPrice, getDiscountPercentage } from "@/lib/utils";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [imageError, setImageError] = useState(false);
   const hasDiscount =
     product.originalPrice && product.originalPrice > product.price;
   const discountPercentage = hasDiscount
     ? getDiscountPercentage(product.originalPrice!, product.price)
     : 0;
 
+  const fallbackImage = `https://via.placeholder.com/400x400/f3f4f6/9ca3af?text=${encodeURIComponent(
+    product.name
+  )}`;
+
   return (
     <Card className="group overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative aspect-square overflow-hidden">
         <Image
-          src={product.images[0] || "/placeholder-product.jpg"}
+          src={imageError ? fallbackImage : product.images[0] || fallbackImage}
           alt={product.name}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onError={() => setImageError(true)}
         />
         {hasDiscount && (
           <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">

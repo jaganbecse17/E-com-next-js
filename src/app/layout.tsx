@@ -3,6 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { AuthProvider } from "@/contexts/auth-context";
+import { CartProvider } from "@/contexts/cart-context";
+import { NotificationProvider } from "@/contexts/notification-context";
+import { NextIntlClientProvider } from "next-intl";
+import messages from "../../messages/en.json";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,9 +77,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <NextIntlClientProvider messages={messages} locale="en">
+          <AuthProvider>
+            <CartProvider>
+              <NotificationProvider>
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </NotificationProvider>
+            </CartProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
