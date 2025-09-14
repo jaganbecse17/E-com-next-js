@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import { NotificationProvider } from "@/contexts/notification-context";
 import { NextIntlClientProvider } from "next-intl";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import messages from "../../messages/en.json";
 
 const inter = Inter({
@@ -88,6 +90,8 @@ export default function RootLayout({
             </CartProvider>
           </AuthProvider>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
