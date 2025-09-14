@@ -17,6 +17,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NODE_ENV === "production" 
+      ? "https://e-com-next-js-two.vercel.app" 
+      : "http://localhost:3000"
+  ),
   title: {
     default: "ECommerce - Your Premier Shopping Destination",
     template: "%s | ECommerce",

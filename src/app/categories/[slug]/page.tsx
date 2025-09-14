@@ -22,7 +22,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const category = getCategoryBySlug(params.slug);
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
 
   if (!category) {
     return {
@@ -40,9 +41,10 @@ export async function generateMetadata({
   );
 }
 
-export default function CategoryPage({ params }: PageProps) {
-  const category = getCategoryBySlug(params.slug);
-  const products = getProductsByCategory(params.slug);
+export default async function CategoryPage({ params }: PageProps) {
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
+  const products = getProductsByCategory(slug);
 
   if (!category) {
     notFound();
