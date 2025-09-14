@@ -6,17 +6,28 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { useNotifications } from "@/contexts/notification-context";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { CartSidebar } from "@/components/cart/cart-sidebar";
+
+// Static navigation text
+const navText = {
+  search: "Search products...",
+  cart: "Cart",
+  notifications: "Notifications",
+  profile: "Profile",
+  login: "Sign In",
+  logout: "Sign Out",
+  categories: "Categories",
+  products: "Products",
+  about: "About",
+  contact: "Contact",
+};
 
 export default function Header() {
   const { user, isAuthenticated, logout } = useAuth();
   const { cart } = useCart();
   const { unreadCount } = useNotifications();
-  const t = useTranslations("navigation");
-  const tCommon = useTranslations("common");
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showCartSidebar, setShowCartSidebar] = useState(false);
 
@@ -41,25 +52,25 @@ export default function Header() {
                 href="/products"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                {t("products")}
+                {navText.products}
               </Link>
               <Link
                 href="/categories"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                {t("categories")}
+                {navText.categories}
               </Link>
               <Link
                 href="/about"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                {tCommon("about")}
+                {navText.about}
               </Link>
               <Link
                 href="/contact"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                {tCommon("contact")}
+                {navText.contact}
               </Link>
             </nav>
 
@@ -67,7 +78,7 @@ export default function Header() {
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" className="hidden md:flex">
                 <Search className="h-5 w-5" />
-                <span className="sr-only">{tCommon("search")}</span>
+                <span className="sr-only">{navText.search}</span>
               </Button>
 
               {/* Notifications - only show when authenticated */}
@@ -75,7 +86,7 @@ export default function Header() {
                 <Link href="/notifications">
                   <Button variant="ghost" size="icon" className="relative">
                     <Bell className="h-5 w-5" />
-                    <span className="sr-only">{t("notifications")}</span>
+                    <span className="sr-only">{navText.notifications}</span>
                     {unreadCount > 0 && (
                       <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
                         {unreadCount > 9 ? "9+" : unreadCount}

@@ -6,10 +6,8 @@ import Footer from "@/components/layout/footer";
 import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import { NotificationProvider } from "@/contexts/notification-context";
-import { NextIntlClientProvider } from "next-intl";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import messages from "../../messages/en.json";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,8 +16,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NODE_ENV === "production" 
-      ? "https://e-com-next-js-two.vercel.app" 
+    process.env.NODE_ENV === "production"
+      ? "https://e-com-next-js-two.vercel.app"
       : "http://localhost:3000"
   ),
   title: {
@@ -84,17 +82,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col antialiased">
-        <NextIntlClientProvider messages={messages} locale="en">
-          <AuthProvider>
-            <CartProvider>
-              <NotificationProvider>
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </NotificationProvider>
-            </CartProvider>
-          </AuthProvider>
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <CartProvider>
+            <NotificationProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </NotificationProvider>
+          </CartProvider>
+        </AuthProvider>
         <Analytics />
         <SpeedInsights />
       </body>

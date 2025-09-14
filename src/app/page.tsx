@@ -10,27 +10,69 @@ import CategoryCard from "@/components/ecommerce/category-card";
 import { BannerCarouselWrapper } from "@/components/home/banner-carousel-wrapper";
 import { SubCategoriesMenu } from "@/components/navigation/subcategories-menu";
 import { getFeaturedProducts, categories } from "@/data/products";
-import { useTranslations } from "next-intl";
+
+// Static text for now (removing i18n dependency)
+const staticText = {
+  features: {
+    fastShipping: {
+      title: "Fast & Free Shipping",
+      description: "Free shipping on orders over $75. Express delivery available.",
+    },
+    secureShopping: {
+      title: "Secure Shopping",
+      description: "Your payment information is encrypted and secure.",
+    },
+    easyReturns: {
+      title: "Easy Returns",
+      description: "30-day return policy. No questions asked.",
+    },
+  },
+  categories: {
+    title: "Shop by Category",
+    description: "Explore our wide range of product categories",
+  },
+  featuredProducts: {
+    title: "Featured Products",
+    description: "Hand-picked products just for you",
+    viewAll: "View All Products",
+  },
+  testimonials: {
+    title: "What Our Customers Say",
+    description: "Don't just take our word for it - hear from our satisfied customers",
+    reviews: [
+      {
+        name: "Sarah Johnson",
+        comment: "Amazing quality and fast shipping! I'll definitely be ordering again.",
+      },
+      {
+        name: "Mike Chen",
+        comment: "Great customer service and excellent products. Highly recommended!",
+      },
+      {
+        name: "Emily Davis",
+        comment: "Love the variety and quality. Best online shopping experience ever!",
+      },
+    ],
+  },
+};
 
 // Server Component for better performance
 function FeaturesSection() {
-  const t = useTranslations("homepage");
-
   const features = [
     {
       icon: Truck,
-      title: t("features.fastShipping.title"),
-      description: t("features.fastShipping.description"),
+      title: staticText.features.fastShipping.title,
+      description: staticText.features.fastShipping.description,
     },
     {
       icon: Shield,
-      title: t("features.secureShopping.title"),
-      description: t("features.secureShopping.description"),
+      title: staticText.features.secureShopping.title,
+      description: staticText.features.secureShopping.description,
     },
     {
       icon: RefreshCw,
-      title: t("features.easyReturns.title"),
-      description: t("features.easyReturns.description"),
+      title: staticText.features.easyReturns.title,
+      description: staticText.features.easyReturns.description,
     },
   ];
 
@@ -53,13 +95,11 @@ function FeaturesSection() {
 
 // Server Component for categories
 function CategoriesSection() {
-  const t = useTranslations("homepage");
-
   return (
     <Section className="py-20">
       <SectionHeader
-        title={t("categories.title")}
-        description={t("categories.description")}
+        title={staticText.categories.title}
+        description={staticText.categories.description}
       />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {categories.map((category) => (
@@ -72,14 +112,13 @@ function CategoriesSection() {
 
 // Server Component for featured products
 function FeaturedProductsSection() {
-  const t = useTranslations("homepage");
   const featuredProducts = getFeaturedProducts();
 
   return (
     <Section background="gradient" className="py-20">
       <SectionHeader
-        title={t("featuredProducts.title")}
-        description={t("featuredProducts.description")}
+        title={staticText.featuredProducts.title}
+        description={staticText.featuredProducts.description}
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
         {featuredProducts.map((product) => (
@@ -89,7 +128,7 @@ function FeaturedProductsSection() {
       <div className="text-center">
         <Link href="/products">
           <Button variant="diamond" size="xl" className="group">
-            {t("featuredProducts.viewAll")}
+            {staticText.featuredProducts.viewAll}
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
           </Button>
         </Link>
@@ -100,21 +139,14 @@ function FeaturedProductsSection() {
 
 // Server Component for testimonials
 function TestimonialsSection() {
-  const t = useTranslations("homepage");
-
-  const testimonials = t.raw("testimonials.reviews") as Array<{
-    name: string;
-    comment: string;
-  }>;
-
   return (
     <Section className="py-20">
       <SectionHeader
-        title={t("testimonials.title")}
-        description={t("testimonials.description")}
+        title={staticText.testimonials.title}
+        description={staticText.testimonials.description}
       />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial, index) => (
+        {staticText.testimonials.reviews.map((testimonial, index) => (
           <TestimonialCard
             key={index}
             name={testimonial.name}

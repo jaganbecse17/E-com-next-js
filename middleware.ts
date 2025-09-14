@@ -1,13 +1,14 @@
-import createMiddleware from "next-intl/middleware";
+// Temporarily disabled middleware for debugging
+// import createMiddleware from "next-intl/middleware";
 
-export default createMiddleware({
-  locales: ["en"],
-  defaultLocale: "en",
-  localePrefix: "never",
-});
+// export default createMiddleware({
+//   locales: ["en"],
+//   defaultLocale: "en",
+//   localePrefix: "never",
+// });
 
-export const config = {
-  matcher: [
-    "/((?!api|_next|_vercel|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
-  ],
-};
+// export const config = {
+//   matcher: [
+//     "/((?!api|_next|_vercel|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
+//   ],
+// };
