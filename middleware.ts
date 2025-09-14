@@ -6,7 +6,7 @@ export default createMiddleware({
 
   // Used when no locale matches
   defaultLocale: "en",
-  
+
   // Always use the default locale, no prefixes
   localePrefix: "never",
 });

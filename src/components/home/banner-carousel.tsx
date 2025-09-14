@@ -213,18 +213,26 @@ export function BannerCarousel() {
               <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp">
                 <Link href={currentBanner.ctaLink}>
                   <Button
-                    variant="royal"
+                    variant={
+                      currentSlide === 0
+                        ? "royal"
+                        : currentSlide === 1
+                        ? "gold"
+                        : currentSlide === 2
+                        ? "diamond"
+                        : "platinum"
+                    }
                     size="xl"
-                    className="w-full sm:w-auto font-bold text-lg shadow-2xl"
+                    className="w-full sm:w-auto font-bold text-lg"
                   >
                     <ShoppingBag className="mr-2 h-5 w-5" />
                     {currentBanner.ctaText}
                   </Button>
                 </Link>
                 <Button
-                  variant="outline"
+                  variant="royal-outline"
                   size="xl"
-                  className="w-full sm:w-auto bg-white/90 backdrop-blur-sm border-white/50 text-black hover:bg-white font-semibold"
+                  className="w-full sm:w-auto font-semibold"
                 >
                   <Gift className="mr-2 h-5 w-5" />
                   View Offers

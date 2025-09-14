@@ -88,7 +88,7 @@ function FeaturedProductsSection() {
       </div>
       <div className="text-center">
         <Link href="/products">
-          <Button variant="royal" size="xl" className="group">
+          <Button variant="diamond" size="xl" className="group">
             {t("featuredProducts.viewAll")}
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
           </Button>
